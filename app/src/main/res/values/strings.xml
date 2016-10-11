@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Bok Choy</string>
+    <string name="title_activity_home">@string/app_name</string>
+    <string name="action_invite">Invite</string>
+    <string name="action_logout">Logout</string>
+    <string name="invitation_title">Bok Choy Invite</string>
+    <string name="invitation_message">Please come eat some Bok Choy with me</string>
+    <string name="invitation_cta">Call to action</string>
+</resources>
