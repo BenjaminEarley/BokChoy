@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/grey_50"
-    tools:context="com.benjaminearley.bokchoy.ListActivity">
+    tools:context="com.benjaminearley.bokchoy.ListsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -18,17 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.benjaminearley.bokchoy.ListActivityFragment"
+        android:id="@+id/listsFragment"
+        android:name="com.benjaminearley.bokchoy.ListsActivityFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_lists" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -38,11 +38,11 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_add"
         app:rippleColor="@color/white"
-        app:elevation="6dp"
+        app:elevation="@dimen/fab_margin"
         android:clickable="true"
-        app:pressedTranslationZ="12dp"
-        app:borderWidth="0dp"
+        app:pressedTranslationZ="@dimen/fab_on_pressed_elevation"
+        app:borderWidth="@dimen/fab_border_width"
         android:tint="@color/white"
-        app:layout_behavior="com.benjaminearley.bokchoy.util.ScrollingFABAnimation"/>
+        app:layout_behavior="com.benjaminearley.bokchoy.util.ScrollingFABAnimation" />
 
 </android.support.design.widget.CoordinatorLayout>

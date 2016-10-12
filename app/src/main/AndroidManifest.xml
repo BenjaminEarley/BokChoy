@@ -10,17 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ListActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.Launcher"
-            android:windowSoftInputMode="stateHidden">
+            android:name=".ListsActivity"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName="com.benjaminearley.bokchoy.ListsActivity"
+            android:windowSoftInputMode="stateHidden" />
         <service
             android:name=".messaging.MyFirebaseInstanceIDService"
             android:exported="false">

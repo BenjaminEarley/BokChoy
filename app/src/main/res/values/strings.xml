@@ -6,4 +6,6 @@
     <string name="invitation_title">Bok Choy Invite</string>
     <string name="invitation_message">Please come eat some Bok Choy with me</string>
     <string name="invitation_cta">Call to action</string>
+    <string name="title_activity_lists">ListsActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>

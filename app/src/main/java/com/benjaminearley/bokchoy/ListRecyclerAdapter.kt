@@ -12,14 +12,13 @@ import com.benjaminearley.bokchoy.util.Keys
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.concurrent.TimeUnit
 
-internal class MyFirebaseRecyclerAdapter(ref: DatabaseReference)
+internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
 : FirebaseRecyclerAdapter<ListItem,
-        MyFirebaseRecyclerAdapter.ViewHolder>(
+        ListRecyclerAdapter.ViewHolder>(
         ListItem::class.java,
-        R.layout.item,
-        MyFirebaseRecyclerAdapter.ViewHolder::class.java,
+        R.layout.list_item,
+        ListRecyclerAdapter.ViewHolder::class.java,
         ref) {
 
     companion object {
@@ -33,43 +32,56 @@ internal class MyFirebaseRecyclerAdapter(ref: DatabaseReference)
 
         val key = getRef(position).key
 
+        viewHolder.listKey = listKey
         viewHolder.key = key
 
         cursorPosition?.first?.let {
             try {
                 if (cursorPosition?.first == key) viewHolder.text.setSelection(cursorPosition?.second ?: 0)
             } catch (e: IndexOutOfBoundsException) {
-                viewHolder.text.setSelection(viewHolder.text.text.length-1)
+                viewHolder.text.setSelection(viewHolder.text.text.length - 1)
             }
         }
     }
 
     internal class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener, TextWatcher {
 
+        var listKey: String? = null
         var key: String? = null
-        val checkBox: CheckBox
-        val text: EditText
+        val checkBox = view.findViewById(R.id.checkBox) as CheckBox
+        val text = view.findViewById(R.id.text) as EditText
         val handler = Handler()
-        val sync: Runnable
+        val sync = Runnable {
+            key?.let {
+                cursorPosition = Pair(it, text.selectionStart)
+                FirebaseDatabase
+                        .getInstance()
+                        .reference
+                        .child(Keys.LISTS_CHILD)
+                        .child(listKey)
+                        .child(Keys.LIST_CHILD)
+                        .child(it)
+                        .child("text")
+                        .setValue(text.text.toString())
+            }
+        }
 
         init {
-            checkBox = view.findViewById(R.id.check_box) as CheckBox
-            text = view.findViewById(R.id.item) as EditText
-
             checkBox.setOnClickListener(this)
             text.addTextChangedListener(this)
-
-            sync = Runnable {
-                key?.let {
-                    cursorPosition = Pair(it, text.selectionStart)
-                    FirebaseDatabase.getInstance().reference.child(Keys.ITEMS_CHILD).child(it).child("text").setValue(text.text.toString())
-                }
-            }
         }
 
         override fun onClick(v: View) {
             key?.let {
-                FirebaseDatabase.getInstance().reference.child(Keys.ITEMS_CHILD).child(it).child("checkbox").setValue((v as CheckBox).isChecked)
+                FirebaseDatabase
+                        .getInstance()
+                        .reference
+                        .child(Keys.LISTS_CHILD)
+                        .child(listKey)
+                        .child(Keys.LIST_CHILD)
+                        .child(it)
+                        .child("checkbox")
+                        .setValue((v as CheckBox).isChecked)
             }
         }
 
@@ -78,9 +90,11 @@ internal class MyFirebaseRecyclerAdapter(ref: DatabaseReference)
             handler.postDelayed(sync, 1000)
         }
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
 
 
     }
