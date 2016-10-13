@@ -11,6 +11,12 @@ object Keys {
     val LIST_CHILD = "list"
 }
 
+val colorMap = mapOf(
+        Pair("Green", R.color.green_custom),
+        Pair("Blue", R.color.blue_A200),
+        Pair("Red", R.color.red_A200)
+)
+
 val SignInScreenIntent: Intent by lazy {
     AuthUI.getInstance()
             .createSignInIntentBuilder()

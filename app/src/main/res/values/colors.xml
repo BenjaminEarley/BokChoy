@@ -10,4 +10,8 @@
 
     <color name="black_t87">#DE000000</color>
 
+    <color name="green_custom">#52C243</color>
+    <color name="blue_A200">#448AFF</color>
+    <color name="red_A200">#FF5252</color>
+
 </resources>

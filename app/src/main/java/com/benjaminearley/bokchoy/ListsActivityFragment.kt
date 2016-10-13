@@ -46,6 +46,7 @@ class ListsActivityFragment : Fragment() {
 
     fun setupFirebaseAdapter() {
         val firebaseAdapter = ListsRecyclerAdapter(
+                context,
                 FirebaseDatabase.getInstance().reference.child(Keys.LISTS_CHILD))
         listsRecyclerView.adapter = firebaseAdapter
     }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_50">
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:columnCount="2">
+
+        <TextView
+            android:id="@+id/titleLabel"
+            android:labelFor="@+id/titleField"
+            android:textColor="@color/black_t87"
+            android:textSize="18sp"
+            android:text="@string/title"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="17dp"
+            app:layout_gravity="center_vertical"
+            app:layout_column="0" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/titleFieldLayout"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/titleField"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:inputType="text" />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/colorLabel"
+            android:textColor="@color/black_t87"
+            android:textSize="18sp"
+            android:text="@string/color"
+            android:layout_marginEnd="8dp"
+            app:layout_gravity="center_vertical"
+            app:layout_column="0" />
+
+        <Spinner
+            android:id="@+id/colorSpinner"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_gravity="center_vertical"/>
+
+    </android.support.v7.widget.GridLayout>
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/submitList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:layout_margin="16dp"
+        android:layout_gravity="end" />
+
+</LinearLayout>

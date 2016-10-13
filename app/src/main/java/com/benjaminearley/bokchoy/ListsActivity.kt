@@ -35,12 +35,11 @@ class ListsActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.APP_OPEN, null)
 
         fab?.setOnClickListener {
-            val listsItem = ListsItem("test")
-            FirebaseDatabase.getInstance().reference.child(Keys.LISTS_CHILD).push().setValue(listsItem)
+            AddListBottomSheetFragment().show(supportFragmentManager, AddListBottomSheetFragment.TAG)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {

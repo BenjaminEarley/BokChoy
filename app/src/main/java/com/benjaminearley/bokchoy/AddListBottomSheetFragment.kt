@@ -1,0 +1,106 @@
+package com.benjaminearley.bokchoy
+
+import android.app.Dialog
+import android.content.Context
+import android.os.Bundle
+import android.support.annotation.StyleRes
+import android.support.design.widget.*
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Spinner
+import com.benjaminearley.bokchoy.model.ListsItem
+import com.benjaminearley.bokchoy.util.Keys
+import com.google.firebase.database.FirebaseDatabase
+
+class AddListBottomSheetFragment : BottomSheetDialogFragment() {
+
+    companion object {
+        val TAG: String? = "addListBottomSheetFragment"
+    }
+
+    val mBottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                dismiss()
+            }
+        }
+
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return CustomWidthBottomSheetDialog(activity, theme)
+    }
+
+    override fun setupDialog(dialog: Dialog?, style: Int) {
+        super.setupDialog(dialog, style)
+        val view = View.inflate(context, R.layout.fragment_add_list_bottom_sheet, null)
+        dialog?.setContentView(view)
+
+        val params = (view.parent as View).layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior
+
+        if (behavior != null && behavior is BottomSheetBehavior<*>) {
+            behavior.setBottomSheetCallback(mBottomSheetBehaviorCallback)
+        }
+
+        val submitButton = view.findViewById(R.id.submitList) as Button
+        val titleFieldLayout = view.findViewById(R.id.titleFieldLayout) as TextInputLayout
+        val titleField = view.findViewById(R.id.titleField) as EditText
+        val spinner = view.findViewById(R.id.colorSpinner) as Spinner
+
+        val adapter = ArrayAdapter.createFromResource(context,
+                R.array.colors, R.layout.color_spinner_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
+        titleFieldLayout.isErrorEnabled = true
+
+        submitButton.setOnClickListener {
+            val titleFieldText = titleField.text.toString()
+
+            if (!titleFieldText.isNullOrBlank()) {
+                val listsItem = ListsItem(titleField.text.toString(), spinner.selectedItem.toString())
+                FirebaseDatabase.getInstance().reference.child(Keys.LISTS_CHILD).push().setValue(listsItem)
+                dismiss()
+            } else {
+                titleFieldLayout.error = "Please fill field"
+            }
+        }
+
+        titleField.addTextChangedListener(object: TextWatcher {
+
+            var hasTextBeenEntered = false
+
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s.isNullOrBlank() && hasTextBeenEntered) {
+                    titleFieldLayout.error = "Please fill field"
+                } else {
+                    hasTextBeenEntered = true
+                    titleFieldLayout.error = null
+                }
+            }
+        })
+    }
+
+    internal class CustomWidthBottomSheetDialog(context: Context, @StyleRes theme: Int) : BottomSheetDialog(context, theme) {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            val width = context.resources.getDimensionPixelSize(R.dimen.bottom_sheet_width)
+            window.setLayout(if (width > 0) width else ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT)
+        }
+    }
+}

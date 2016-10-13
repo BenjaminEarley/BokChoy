@@ -9,4 +9,5 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="list_item_margin">16dp</dimen>
     <dimen name="lists_card_height">112dp</dimen>
+    <dimen name="bottom_sheet_width">0dp</dimen> <!-- MATCH_PARENT -->
 </resources>
