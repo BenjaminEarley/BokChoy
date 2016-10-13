@@ -12,6 +12,8 @@ object Keys {
     val LISTS_TITLE = "title"
     val LISTS_COLOR = "color"
 
+    val LISTS_TITLE_LENGTH_CONFIG = "lists_title_length"
+
     val LIST_TEXT = "text"
     val LIST_CHECKBOX = "checkbox"
 }

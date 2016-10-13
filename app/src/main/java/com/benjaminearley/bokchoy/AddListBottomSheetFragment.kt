@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.annotation.StyleRes
 import android.support.design.widget.*
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import android.widget.Spinner
 import com.benjaminearley.bokchoy.model.ListsItem
 import com.benjaminearley.bokchoy.util.Keys
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 
 class AddListBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -46,6 +48,8 @@ class AddListBottomSheetFragment : BottomSheetDialogFragment() {
         super.setupDialog(dialog, style)
         val view = View.inflate(context, R.layout.fragment_add_list_bottom_sheet, null)
         dialog?.setContentView(view)
+
+        fetchConfig(view)
 
         val params = (view.parent as View).layoutParams as CoordinatorLayout.LayoutParams
         val behavior = params.behavior
@@ -108,6 +112,21 @@ class AddListBottomSheetFragment : BottomSheetDialogFragment() {
                 }
             }
         })
+    }
+
+    fun fetchConfig(view: View) {
+
+        FirebaseRemoteConfig.getInstance().fetch(0L).addOnSuccessListener({
+            FirebaseRemoteConfig.getInstance().activateFetched()
+            applyRetrievedLengthLimit(view)
+        }).addOnFailureListener({
+            applyRetrievedLengthLimit(view)
+        })
+    }
+
+    fun applyRetrievedLengthLimit(view: View) {
+        val listsTitleLength = FirebaseRemoteConfig.getInstance()?.getLong(Keys.LISTS_TITLE_LENGTH_CONFIG)
+        (view.findViewById(R.id.titleField) as EditText).filters = arrayOf<InputFilter>(android.text.InputFilter.LengthFilter(listsTitleLength?.toInt() ?: 15))
     }
 
     internal class CustomWidthBottomSheetDialog(context: Context, @StyleRes theme: Int) : BottomSheetDialog(context, theme) {
