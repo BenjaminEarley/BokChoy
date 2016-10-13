@@ -7,15 +7,12 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import com.benjaminearley.bokchoy.model.ListsItem
-import com.benjaminearley.bokchoy.util.Keys
 import com.benjaminearley.bokchoy.util.SignInScreenIntent
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.appinvite.AppInviteInvitation
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_lists.*
 
 class ListsActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
@@ -43,15 +40,15 @@ class ListsActivity : AppCompatActivity(), FirebaseAuth.AuthStateListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Logged In!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.login_toast), Toast.LENGTH_LONG).show()
                 (supportFragmentManager.findFragmentById(R.id.listsFragment) as? ListsActivityFragment)?.setupFirebaseAdapter()
             } else {
-                Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.login_failed_toast), Toast.LENGTH_LONG).show()
                 finish()
             }
         } else if (requestCode == REQUEST_INVITE) {
             if (resultCode == RESULT_OK) {
-                Toast.makeText(this, "Invite Sent!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.invite_sent_toast), Toast.LENGTH_LONG).show()
             }
         }
     }

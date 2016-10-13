@@ -1,7 +1,6 @@
 package com.benjaminearley.bokchoy.util
 
 import android.content.Context
-import android.os.ResultReceiver
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar

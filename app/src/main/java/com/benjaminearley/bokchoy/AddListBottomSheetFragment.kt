@@ -20,7 +20,10 @@ import com.google.firebase.database.FirebaseDatabase
 class AddListBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
-        val TAG: String? = "addListBottomSheetFragment"
+        val TAG: String = "addListBottomSheetFragment"
+        val TITLE_KEY = "TITLE"
+        val COLOR_KEY = "COLOR"
+        val KEY_KEY = "KEY"
     }
 
     val mBottomSheetBehaviorCallback = object : BottomSheetBehavior.BottomSheetCallback() {
@@ -63,25 +66,38 @@ class AddListBottomSheetFragment : BottomSheetDialogFragment() {
 
         titleFieldLayout.isErrorEnabled = true
 
+        arguments?.let {
+            titleField.setText(it.getString(TITLE_KEY))
+            spinner.setSelection(adapter.getPosition(it.getString(COLOR_KEY)))
+        }
+
         submitButton.setOnClickListener {
             val titleFieldText = titleField.text.toString()
 
             if (!titleFieldText.isNullOrBlank()) {
                 val listsItem = ListsItem(titleField.text.toString(), spinner.selectedItem.toString())
-                FirebaseDatabase.getInstance().reference.child(Keys.LISTS_CHILD).push().setValue(listsItem)
+                val listsItemRef = FirebaseDatabase.getInstance().reference.child(Keys.LISTS_CHILD)
+                arguments?.let {
+                    listsItemRef.child(it.getString(KEY_KEY)).child(Keys.LISTS_TITLE).setValue(listsItem.title)
+                    listsItemRef.child(it.getString(KEY_KEY)).child(Keys.LISTS_COLOR).setValue(listsItem.color)
+                } ?: {
+                    listsItemRef.push().setValue(listsItem)
+                }()
                 dismiss()
             } else {
                 titleFieldLayout.error = "Please fill field"
             }
         }
 
-        titleField.addTextChangedListener(object: TextWatcher {
+        titleField.addTextChangedListener(object : TextWatcher {
 
             var hasTextBeenEntered = false
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+            }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s.isNullOrBlank() && hasTextBeenEntered) {

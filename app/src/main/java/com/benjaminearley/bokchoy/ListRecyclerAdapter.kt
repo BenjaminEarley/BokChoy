@@ -61,7 +61,7 @@ internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
                         .child(listKey)
                         .child(Keys.LIST_CHILD)
                         .child(it)
-                        .child("text")
+                        .child(Keys.LIST_TEXT)
                         .setValue(text.text.toString())
             }
         }
@@ -80,7 +80,7 @@ internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
                         .child(listKey)
                         .child(Keys.LIST_CHILD)
                         .child(it)
-                        .child("checkbox")
+                        .child(Keys.LIST_CHECKBOX)
                         .setValue((v as CheckBox).isChecked)
             }
         }

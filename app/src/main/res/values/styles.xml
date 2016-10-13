@@ -13,6 +13,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.GreenTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/green_custom</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/green_custom</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.BlueTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_A200</item>
+        <item name="colorPrimaryDark">@color/blue_A700</item>
+        <item name="colorAccent">@color/blue_A200</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.RedTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/red_A200</item>
+        <item name="colorPrimaryDark">@color/red_A700</item>
+        <item name="colorAccent">@color/red_A200</item>
+    </style>
+
     <style name="AppTheme.Launcher">
         <item name="android:windowBackground">@drawable/background_splash</item>
     </style>

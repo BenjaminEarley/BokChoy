@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.benjaminearley.bokchoy.util.Keys
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -67,7 +66,7 @@ class ListActivityFragment : Fragment() {
                         .child(activity.intent.getStringExtra(ListActivity.KEY))
                         .child(Keys.LIST_CHILD),
                 activity.intent.getStringExtra(ListActivity.KEY)
-                )
+        )
         listRecyclerView.adapter = firebaseAdapter
     }
 }

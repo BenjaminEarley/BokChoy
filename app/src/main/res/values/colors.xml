@@ -14,4 +14,7 @@
     <color name="blue_A200">#448AFF</color>
     <color name="red_A200">#FF5252</color>
 
+    <color name="blue_A700">#2962FF</color>
+    <color name="red_A700">#D50000</color>
+
 </resources>

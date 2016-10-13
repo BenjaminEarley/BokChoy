@@ -27,13 +27,14 @@
             android:id="@+id/titleFieldLayout"
             app:layout_column="1"
             app:layout_columnWeight="1"
-            app:layout_gravity="center_vertical">
+            app:layout_gravity="center_vertical"
+            android:imeOptions="actionDone">
 
             <EditText
                 android:id="@+id/titleField"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:inputType="text" />
+                android:inputType="textCapWords" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +52,7 @@
             android:id="@+id/colorSpinner"
             app:layout_column="1"
             app:layout_columnWeight="1"
-            app:layout_gravity="center_vertical"/>
+            app:layout_gravity="center_vertical" />
 
     </android.support.v7.widget.GridLayout>
 

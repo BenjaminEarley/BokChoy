@@ -11,6 +11,10 @@
     <string name="title">Title</string>
     <string name="submit">Submit</string>
     <string name="color">Color</string>
+    <string name="login_toast">Logged In!</string>
+    <string name="login_failed_toast">Failed</string>
+    <string name="invite_sent_toast">Invite Sent!</string>
+
     <string-array name="colors">
         <item>Green</item>
         <item>Blue</item>

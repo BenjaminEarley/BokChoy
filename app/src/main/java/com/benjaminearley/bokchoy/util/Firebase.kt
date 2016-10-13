@@ -1,7 +1,6 @@
 package com.benjaminearley.bokchoy.util
 
 import android.content.Intent
-import com.benjaminearley.bokchoy.BuildConfig
 import com.benjaminearley.bokchoy.R
 import com.firebase.ui.auth.AuthUI
 
@@ -9,12 +8,30 @@ object Keys {
 
     val LISTS_CHILD = "lists"
     val LIST_CHILD = "list"
+
+    val LISTS_TITLE = "title"
+    val LISTS_COLOR = "color"
+
+    val LIST_TEXT = "text"
+    val LIST_CHECKBOX = "checkbox"
 }
 
-val colorMap = mapOf(
+val colorPrimaryMap = mapOf(
         Pair("Green", R.color.green_custom),
         Pair("Blue", R.color.blue_A200),
         Pair("Red", R.color.red_A200)
+)
+
+val colorSecondaryMap = mapOf(
+        Pair("Green", R.color.colorPrimary),
+        Pair("Blue", R.color.blue_A700),
+        Pair("Red", R.color.red_A700)
+)
+
+val colorThemeMap = mapOf(
+        Pair("Green", R.style.AppTheme_NoActionBar_GreenTheme),
+        Pair("Blue", R.style.AppTheme_NoActionBar_BlueTheme),
+        Pair("Red", R.style.AppTheme_NoActionBar_RedTheme)
 )
 
 val SignInScreenIntent: Intent by lazy {
@@ -22,7 +39,7 @@ val SignInScreenIntent: Intent by lazy {
             .createSignInIntentBuilder()
             .setLogo(R.drawable.ic_bokchoy)
             .setTheme(R.style.AppTheme)
-            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+            .setIsSmartLockEnabled(false)
             .setProviders(
                     AuthUI.EMAIL_PROVIDER,
                     AuthUI.GOOGLE_PROVIDER)

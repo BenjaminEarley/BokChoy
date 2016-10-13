@@ -23,6 +23,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName="com.benjaminearley.bokchoy.ListsActivity"
             android:windowSoftInputMode="stateHidden" />
+
         <service
             android:name=".messaging.MyFirebaseInstanceIDService"
             android:exported="false">
