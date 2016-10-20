@@ -39,7 +39,10 @@ internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
             try {
                 if (cursorPosition?.first == key) viewHolder.text.setSelection(cursorPosition?.second ?: 0)
             } catch (e: IndexOutOfBoundsException) {
-                viewHolder.text.setSelection(viewHolder.text.text.length - 1)
+                viewHolder.text.setSelection(
+                        if (viewHolder.text.text.length > 0) viewHolder.text.text.length - 1
+                        else 0
+                )
             }
         }
     }
