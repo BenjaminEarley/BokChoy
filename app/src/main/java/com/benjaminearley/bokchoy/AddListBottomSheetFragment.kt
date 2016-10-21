@@ -129,7 +129,7 @@ class AddListBottomSheetFragment : BottomSheetDialogFragment() {
         (view.findViewById(R.id.titleField) as EditText).filters = arrayOf<InputFilter>(android.text.InputFilter.LengthFilter(listsTitleLength?.toInt() ?: 15))
     }
 
-    internal class CustomWidthBottomSheetDialog(context: Context, @StyleRes theme: Int) : BottomSheetDialog(context, theme) {
+    class CustomWidthBottomSheetDialog(context: Context, @StyleRes theme: Int) : BottomSheetDialog(context, theme) {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
