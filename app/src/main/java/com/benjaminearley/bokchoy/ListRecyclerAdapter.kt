@@ -29,6 +29,7 @@ internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
 
         viewHolder.checkBox.isChecked = listItem.checkbox
         viewHolder.text.setText(listItem.text)
+        viewHolder.handler.removeCallbacks(viewHolder.sync)
 
         val key = getRef(position).key
 
@@ -40,7 +41,7 @@ internal class ListRecyclerAdapter(ref: DatabaseReference, val listKey: String)
                 if (cursorPosition?.first == key) viewHolder.text.setSelection(cursorPosition?.second ?: 0)
             } catch (e: IndexOutOfBoundsException) {
                 viewHolder.text.setSelection(
-                        if (viewHolder.text.text.length > 0) viewHolder.text.text.length - 1
+                        if (viewHolder.text.text.isNotEmpty()) viewHolder.text.text.length - 1
                         else 0
                 )
             }
